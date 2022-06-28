@@ -6,6 +6,27 @@ use Illuminate\Http\Request;
 
 class VvvebController extends Controller
 {
+
+    public function Editor() {
+        $html = file_get_contents('editor.html');
+        $htmlFiles = glob('{my-pages/*.html,demo/*\/*.html, demo/*.html}',  GLOB_BRACE);
+        $files = null;
+        foreach ($htmlFiles as $file) {
+            if (in_array($file, array('new-page-blank-template.html', 'editor.html'))) continue;
+            $pathInfo = pathinfo($file);
+            $filename = $pathInfo['filename'];
+            $folder = preg_replace('@/.+?$@', '', $pathInfo['dirname']);
+            $subfolder = preg_replace('@^.+?/@', '', $pathInfo['dirname']);
+            if ($filename == 'index' && $subfolder) {
+                $filename = $subfolder;
+            }
+            $url = $pathInfo['dirname'] . '/' . $pathInfo['basename'];
+            $name = ucfirst($filename);
+            $files .= "{name:'$name', file:'$filename', title:'$name',  url: '$url', folder:'$folder'},";
+            return str_replace('(pages)', "([$files])", $html);
+        }
+    }
+
    public function sanitizeFileName($file)
     {
         //sanitize, remove double dot .. and remove get parameters if any
