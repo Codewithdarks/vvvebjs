@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VvvebController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('editor', [VvvebController::class, 'Editor'])->name('editor');
+Route::any('save/content', [VvvebController::class, 'SaveContent'])->name('save');
+Route::any('content/{id}/get', [VvvebController::class, 'GetContent'])->name('get.content');
