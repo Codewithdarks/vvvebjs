@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class VvvebController extends Controller
 {
 
-    public function Editor() {
+    public function Editor($active=null) {
         $pages = PageBuilder::all();
         $list = array();
         foreach ($pages as $page) {
@@ -21,7 +21,12 @@ class VvvebController extends Controller
             );
         }
         $all = json_encode($list);
-        return view('vvvebjs.editor', compact('all'));
+        if ($active !== null) {
+            $active = $active;
+        } else {
+            $active = $list[0]['name'];
+        }
+        return view('vvvebjs.editor', compact('all', 'active'));
     }
 
     public function SaveContent(Request $request) {

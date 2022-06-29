@@ -106,10 +106,10 @@
                 <a href="#" class="text-secondary">Pages</a>
 
                 <div class="btn-group responsive-btns me-4 float-end" role="group">
-                    <button class="btn btn-link btn-sm" title="New file" id="new-file-btn" data-vvveb-action="newPage"
-                            data-vvveb-shortcut="">
-                        <i class="la la-file"></i> <span>New page</span>
-                    </button>
+{{--                    <button class="btn btn-link btn-sm" title="New file" id="new-file-btn" data-vvveb-action="newPage"--}}
+{{--                            data-vvveb-shortcut="">--}}
+{{--                        <i class="la la-file"></i> <span>New page</span>--}}
+{{--                    </button>--}}
 
                     <!--  &ensp;
                     <button class="btn btn-link text-dark p-0"  title="Delete file" id="delete-file-btn" data-vvveb-action="deletePage" data-vvveb-shortcut="">
@@ -1716,10 +1716,11 @@ Unzip the latest ckeditor release zip from https://github.com/ckeditor/ckeditor4
         Vvveb.FileManager.init();
         Vvveb.SectionList.init();
         var pages = {!! $all !!};
+        var activePage = "{{ $active }}";
 
         Vvveb.FileManager.addPages(pages);
 
-        Vvveb.FileManager.loadPage("narrow-jumbotron");
+        Vvveb.FileManager.loadPage(activePage);
         Vvveb.Breadcrumb.init();
     });
 </script>
